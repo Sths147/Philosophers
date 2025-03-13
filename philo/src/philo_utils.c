@@ -6,11 +6,29 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:26 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/04 14:11:32 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:14:53 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	check_time(t_philo *philo)
+{
+	if (actual_time(philo->args) > philo->args.death_clock + philo->last_meal_stamp)
+		exit(printf("%zu philo nbr %d died\n", actual_time(philo->args), philo->philo_nbr));
+}
+
+time_t	actual_time(t_args rules)
+{
+	struct timeval	tv;
+	time_t			result;
+
+	(void)rules;
+	gettimeofday(&tv, NULL);
+	
+	result = (tv.tv_sec * 1000 + tv.tv_usec / 1000) - rules.beg_time;
+	return (result);
+}
 
 size_t	atosize_t(const char *nptr)
 {

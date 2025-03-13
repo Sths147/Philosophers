@@ -10,10 +10,11 @@ SRCFOLDER = src/
 
 OBJFOLDER = objs/
 
-SRC_LIST = init.c \
-	philo_utils.c \
-	behaviour.c \
-	main.c \
+SRC_LIST = init.c 	\
+	philo_utils.c 	\
+	behaviour.c 	\
+	free.c			\
+	main.c
 
 SRC = $(addprefix $(SRCFOLDER), $(SRC_LIST))
 

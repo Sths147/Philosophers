@@ -6,11 +6,28 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:58:24 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/05 15:12:06 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:35:26 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philosophers.h"
+
+pthread_mutex_t	*init_forks(t_args rules)
+{
+	pthread_mutex_t	*result;
+	int		i;
+
+	i = -1;
+	result = (pthread_mutex_t *)malloc((rules.nbr) * sizeof(pthread_mutex_t));
+	if (!result)
+		return (NULL);
+	while (++i < rules.nbr)
+	{
+		if (pthread_mutex_init(&result[i], NULL) == -1)
+			return (NULL);
+	}
+	return (result);
+}
 
 t_args	init_rules(int ac, char **av)
 {
@@ -26,10 +43,12 @@ t_args	init_rules(int ac, char **av)
 	rules.sleep_clock = (time_t)ft_atoi(av[4]);
 	if (ac == 6)
 		rules.meal_nbr = ft_atoi(av[5]);
+	else
+		rules.meal_nbr = -1;
 	return (rules);
 }
 
-t_philo	*init_philo(t_args rules)
+t_philo	*init_philo(t_args rules, pthread_mutex_t *fork_array)
 {
 	t_philo					*philo_array;
 	int						i;
@@ -47,9 +66,8 @@ t_philo	*init_philo(t_args rules)
 		philo_array[i].thinks = 1;
 		philo_array[i].sleeps = 0;
 		philo_array[i].is_dead = 0;
-		philo_array[i].fork.fork_id = i + 1;
-		if (pthread_mutex_init(&philo_array[i].fork.mutex, NULL))
-			return(NULL);//free all tab and return null
+		philo_array[i].forks = fork_array;
+		philo_array[i].meals_eaten = 0;
 		i++;
 	}
 	return (philo_array);
