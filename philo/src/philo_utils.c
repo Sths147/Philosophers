@@ -6,34 +6,36 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:26 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/13 15:14:53 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:58:50 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	check_time(t_philo *philo)
-{
-	if (actual_time(philo->args) > philo->args.death_clock + philo->last_meal_stamp)
-		exit(printf("%zu philo nbr %d died\n", actual_time(philo->args), philo->philo_nbr));
-}
 
 time_t	actual_time(t_args rules)
 {
 	struct timeval	tv;
 	time_t			result;
 
-	(void)rules;
 	gettimeofday(&tv, NULL);
-	
 	result = (tv.tv_sec * 1000 + tv.tv_usec / 1000) - rules.beg_time;
+	return (result);
+}
+
+time_t	get_time(void)
+{
+	struct timeval	tv;
+	time_t			result;
+
+	gettimeofday(&tv, NULL);
+	result = (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 	return (result);
 }
 
 size_t	atosize_t(const char *nptr)
 {
-	int	i;
-	int	result;
+	int		i;
+	size_t	result;
 
 	i = 0;
 	result = 0;
@@ -76,3 +78,45 @@ int	ft_atoi(const char *nptr)
 	return (result * sign);
 }
 
+int	check_args(int ac, char **av)
+{
+	int	i;
+	int	j;
+	
+	if (ac != 5 && ac != 6)
+		return (1);
+	i = 1;
+	while(av[i])
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			if (av[i][j] < '0' || av[i][j] > '9')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	myusleep(int time, t_philo *philo)
+{
+	time_t	start;
+
+	start = get_time();
+	while (get_time() < start + time && philo->args.isdone == 0)
+		usleep(100);
+}
+
+int		isdone(t_args	arg)
+{
+	pthread_mutex_lock(arg.done_mutex);
+	if (arg.isdone)
+	{	
+		pthread_mutex_unlock(arg.done_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(arg.done_mutex);
+	return (0);
+}

@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 11:48:44 by sithomas          #+#    #+#             */
-/*   Updated: 2025/01/31 14:07:29 by sithomas         ###   ########.fr       */
+/*   Created: 2025/03/13 16:24:10 by sithomas          #+#    #+#             */
+/*   Updated: 2025/03/20 16:30:11 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+# include "philosophers.h"
 
-#include <pthread.h>
-#include <sys/time.h>
-#include "struct.h"
-#include <unistd.h>
-#include <stdio.h>
-
-#endif
+void	free_mutex(pthread_mutex_t	*forks, int nbr)
+{
+	int i;
+	
+	i = 0;
+	while (i < nbr)
+	{
+		if (pthread_mutex_destroy(&forks[i]) == -1)
+			return (perror("mutex destroy error"));
+		i++;
+	}
+	free(forks);
+}
