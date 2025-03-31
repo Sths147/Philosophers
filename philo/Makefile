@@ -14,6 +14,8 @@ SRC_LIST = init.c 	\
 	philo_utils.c 	\
 	behaviour.c 	\
 	free.c			\
+	philo_utils2.c	\
+	create.c		\
 	main.c
 
 SRC = $(addprefix $(SRCFOLDER), $(SRC_LIST))

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:59:59 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/21 13:50:43 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:29:49 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ typedef struct s_philo
 {
 	pthread_t		thread_id;
 	int				philo_nbr;
-	t_args			args;
+	t_args			*args;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*printf_mutex;
+	pthread_mutex_t	*stamp_mutex;
 	time_t			last_meal_stamp;
+	pthread_mutex_t	*ate_mutex;
 	int				meals_eaten;
 	_Bool			started;
 	_Bool			eats;
