@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:50:32 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/31 17:57:35 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:40:34 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ static void	end_philo_died(t_args *rules, t_philo *philo_array, pthread_mutex_t 
 	{
 		if (pthread_join(philo_array[i].thread_id, NULL))
 			return (perror("issue waiting thread"));
+		pthread_mutex_destroy(philo_array[i].ate_mutex);
+		free(philo_array[i].ate_mutex);
+		pthread_mutex_destroy(philo_array[i].stamp_mutex);
+		free(philo_array[i].stamp_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(rules->print_mutex);
@@ -117,6 +121,10 @@ static void	all_philo_ate(t_args *rules, t_philo *philo_array, pthread_mutex_t *
 	{
 		if (pthread_join(philo_array[i].thread_id, NULL))
 			return (perror("issue waiting thread"));
+		pthread_mutex_destroy(philo_array[i].ate_mutex);
+		free(philo_array[i].ate_mutex);
+		pthread_mutex_destroy(philo_array[i].stamp_mutex);
+		free(philo_array[i].stamp_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(rules->print_mutex);
