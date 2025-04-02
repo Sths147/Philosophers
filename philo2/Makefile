@@ -12,12 +12,14 @@ OBJFOLDER = objs/
 
 SRC_LIST = utils.c		\
 	free.c				\
+	free_2.c			\
 	init_rules.c		\
 	init_philo.c		\
 	mutex_functions.c	\
 	mutex_functions_2.c	\
 	launchs.c			\
 	routine.c			\
+	watcher.c			\
 	main.c				\
 	
 

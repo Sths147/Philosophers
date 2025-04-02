@@ -1,56 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 14:03:58 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/02 15:43:00 by sithomas         ###   ########.fr       */
+/*   Created: 2025/04/02 15:55:30 by sithomas          #+#    #+#             */
+/*   Updated: 2025/04/02 16:09:49 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*
-Destroys rules and the fork array until an index
-*/
-
-void	destroy_rules_2(t_rules *rules)
+void	clean_all(t_philo *table, t_rules *rules)
 {
-	kill_ongoing_fork_array(rules->forks, rules->nbr - 1);
-	destroy_rules(rules);		
+	clean_philos(table, rules);
+	clean_rules(rules);
 }
 
-void	destroy_rules(t_rules *rules)
+void	clean_rules(t_rules *rules)
 {
 	pthread_mutex_destroy(&rules->isdone_mutex);
 	pthread_mutex_destroy(&rules->mutex_printf);
+	clean_forks(rules->forks, rules->nbr);
 	free(rules);
 }
 
-void	kill_ongoing_fork_array(t_fork *result, int i)
+void	clean_forks(t_fork *forks, int nbr)
 {
-	while (i >= 0)
-	{
-		pthread_mutex_destroy(&result->fork);
-		i--;
-	}
-	free(result);
+	int	i;
+	
+	i = -1;
+	while (++i < nbr)
+		pthread_mutex_destroy(&forks[i].fork);
+	free(forks);
 }
 
-void	free_mutexes_philo(t_philo *table, int i, int stamp)
+void	clean_philos(t_philo *table, t_rules *rules)
 {
-	if (stamp == 2)
+	int	i;
+	int	nbr;
+	
+	nbr = rules->nbr;
+	i = 0;
+	while (i < nbr)
+	{
 		pthread_mutex_destroy(&table[i].done_mutex);
-	if (stamp)
-		pthread_mutex_destroy(&table[i].stamp_mutex);
-	i--;
-	while (i >= 0)
-	{	
 		pthread_mutex_destroy(&table[i].stamp_mutex);
 		pthread_mutex_destroy(&table[i].meals_mutex);
-		pthread_mutex_destroy(&table[i].done_mutex);
-		i--;
-	}	
+		i++;
+	}
+	free(table);
 }

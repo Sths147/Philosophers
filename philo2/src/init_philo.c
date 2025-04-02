@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:16:51 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/01 18:15:00 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:58:28 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_philo	*init_philos(t_rules *rules)
 		table[i].eats = 1;
 		table[i].is_done = 0;
 		table[i].rules = rules;
+		table[i].meals_eaten = 0;
+		table[i].last_meal_stamp = 0;
 		assign_forks(&table[i], i);
 		i++;
 	}
@@ -43,7 +45,7 @@ t_philo	*init_philos(t_rules *rules)
 
 static void	assign_forks(t_philo *philo, int i)
 {
-	if (i == philo->rules->nbr)
+	if (i == philo->rules->nbr - 1)
 	{
 		philo->left_fork = &philo->rules->forks[0];
 		philo->right_fork = &philo->rules->forks[i];

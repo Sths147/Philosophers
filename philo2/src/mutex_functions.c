@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:44:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/01 18:43:13 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:38:48 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	printf_secured(time_t time, int id, char *str, t_rules *rules)
 
 void	grab_forks(t_philo	*philo)
 {
+	
 	pthread_mutex_lock(&philo->right_fork->fork);
+	philo->right_fork->is_taken = 1;
 	printf_secured(actual_time(philo->rules), philo->philo_id, "has taken a fork", philo->rules);
 	pthread_mutex_lock(&philo->left_fork->fork);
 	printf_secured(actual_time(philo->rules), philo->philo_id, "has taken a fork", philo->rules);
@@ -30,9 +32,7 @@ void	grab_forks(t_philo	*philo)
 void	drop_forks(t_philo	*philo)
 {
 	pthread_mutex_unlock(&philo->right_fork->fork);
-	printf_secured(actual_time(philo->rules), philo->philo_id, "has taken a fork", philo->rules);
 	pthread_mutex_unlock(&philo->left_fork->fork);
-	printf_secured(actual_time(philo->rules), philo->philo_id, "has taken a fork", philo->rules);
 }
 
 void	actualise_meal_stamp(t_philo *philo)

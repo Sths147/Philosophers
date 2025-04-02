@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:20:47 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/01 18:43:46 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:48:15 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,23 @@ void *routine(void *args)
 	philo = (t_philo *)args;
 	while (get_time() < philo->rules->beg_time)
 		continue ;
-	if (philo->philo_id % 2)
+	if (philo->philo_id % 2 == 0)
 		usleep(100);
 	actualise_meal_stamp(philo);
-	pthread_mutex_lock(&philo->rules->isdone_mutex);
-	while (!(philo->rules->is_done))
+	while (1)
 	{
-		pthread_mutex_unlock(&philo->rules->isdone_mutex);
 		if (philo->eats && feed_philo(philo))
 			break;
 		else
 		{
 			printf_secured(actual_time(philo->rules), philo->philo_id, "is sleeping", philo->rules);
-			philo->eats = 1;
-			myusleep(philo->rules->sleep_time, philo);
 			if (is_it_done(philo))
 				break;
+			myusleep(philo->rules->sleep_time, philo);
+			philo->eats = 1;
 			printf_secured(actual_time(philo->rules), philo->philo_id, "is thinking", philo->rules);			
 		}
-		pthread_mutex_lock(&philo->rules->isdone_mutex);
 	}
-	pthread_mutex_lock(&philo->rules->isdone_mutex);
 	return (NULL);
 }
 
@@ -50,9 +46,12 @@ static int	feed_philo(t_philo *philo)
 	grab_forks(philo);
 	actualise_meal_stamp(philo);
 	printf_secured(actual_time(philo->rules), philo->philo_id, "is eating", philo->rules);
-	myusleep(philo->rules->eat_time, philo);
 	if (is_it_done(philo))
+	{	
+		drop_forks(philo);
 		return (1);
+	}
+	myusleep(philo->rules->eat_time, philo);
 	update_meals(philo);
 	philo->eats = 0;
 	drop_forks(philo);

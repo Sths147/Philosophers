@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:15:38 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/01 15:06:35 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:20:47 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,18 @@ time_t	get_time(void)
 	gettimeofday(&tv, NULL);
 	result = (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 	return (result);
+}
+
+int	special_cases(char **av)
+{
+	if (av[1][0] == '0' && !av[1][1])
+		return (1);
+	if (av[1][0] == '1' && !av[1][1])
+	{
+		printf("0 1 has taken a fork\n");
+		usleep((ft_atoi(av[2]) + 1) * 1000);
+		printf("%d is dead\n", ft_atoi(av[2]) + 1);
+		return (1);
+	}
+	return (0);
 }
