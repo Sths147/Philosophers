@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:20:20 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 11:28:30 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:42:50 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*watcher_routine(void *args)
 	int		i;
 
 	table = (t_philo *)args;
-	nbr = table->rules->meals_nbr;
+	nbr = table->rules->nbr;
 	while (1)
 	{
 		i = -1;
@@ -78,7 +78,7 @@ void	simulation_done(t_philo *table, int i, int type)
 	}
 	wait_philos(table);
 	if (type)
-		printf_secured(actual_time(table->rules), i, "is dead", table->rules);
+		printf_secured(actual_time(table->rules), i, "died", table->rules);
 }
 
 static int	check_if_dead(t_philo *philo)

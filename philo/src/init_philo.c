@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:16:51 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 11:04:13 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:36:19 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	assign_forks(t_philo *philo, int i)
 	}
 	else
 	{
-		philo->left_fork = &philo->rules->forks[i];
-		philo->right_fork = &philo->rules->forks[i + 1];
+		philo->left_fork = &philo->rules->forks[i + 1];
+		philo->right_fork = &philo->rules->forks[i];
 	}
 }
 

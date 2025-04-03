@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:44:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 13:13:16 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:46:38 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,40 @@ void	printf_secured(time_t time, int id, char *str, t_rules *rules)
 	pthread_mutex_unlock(&rules->mutex_printf);
 }
 
-void	grab_forks(t_philo *philo)
+int	grab_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->right_fork->fork);
-	if (philo->right_fork->is_taken == 0)
+	if (philo->right_fork->is_taken == 0 && philo->rules->nbr > 1)
 	{
-		philo->right_fork->is_taken = 1;
-		printf_secured(actual_time(philo->rules), philo->philo_id,
-			"has taken a fork", philo->rules);
-	}
-	pthread_mutex_lock(&philo->left_fork->fork);
-	if (is_it_done(philo))
-	{
+		pthread_mutex_lock(&philo->left_fork->fork);
+		if (philo->left_fork->is_taken == 0)
+		{
+			philo->right_fork->is_taken = 1;
+			printf_secured(actual_time(philo->rules), philo->philo_id,
+				"has taken a fork", philo->rules);
+			philo->left_fork->is_taken = 1;
+			printf_secured(actual_time(philo->rules), philo->philo_id,
+				"has taken a fork", philo->rules);
+			pthread_mutex_unlock(&philo->right_fork->fork);
+			pthread_mutex_unlock(&philo->left_fork->fork);
+			return (1);
+		}
 		pthread_mutex_unlock(&philo->left_fork->fork);
-		return ;
 	}
-	if (philo->left_fork->is_taken == 0)
-	{
-		philo->left_fork->is_taken = 1;
-		printf_secured(actual_time(philo->rules), philo->philo_id,
-			"has taken a fork", philo->rules);
-	}
+	pthread_mutex_unlock(&philo->right_fork->fork);
+	return (0);
 }
 
 void	drop_forks(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->right_fork->fork);
+	if (philo->right_fork->is_taken == 1)
+		philo->right_fork->is_taken = 0;
 	pthread_mutex_unlock(&philo->right_fork->fork);
-	philo->right_fork->is_taken = 0;
+	pthread_mutex_lock(&philo->left_fork->fork);
+	if (philo->left_fork->is_taken == 1)
+		philo->left_fork->is_taken = 0;
 	pthread_mutex_unlock(&philo->left_fork->fork);
-	philo->left_fork->is_taken = 0;
 }
 
 void	actualise_meal_stamp(t_philo *philo)

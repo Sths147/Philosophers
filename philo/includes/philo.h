@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:12:00 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 13:12:47 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:07:33 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_rules	*init_rules(int ac, char **av);
 t_philo	*init_philos(t_rules *rules);
 
 //	mutex_functions.c
-void	grab_forks(t_philo *philo);
+int		grab_forks(t_philo *philo);
 void	drop_forks(t_philo *philo);
 void	actualise_meal_stamp(t_philo *philo);
 void	printf_secured(time_t time, int id, char *str, t_rules *rules);
