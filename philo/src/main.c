@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:11:00 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:47:49 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:10:55 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_rules	*rules;
 	t_philo	*table;
 
-	if (check_args(ac, av) || special_cases(av))
+	if (check_args(ac, av))
 		return (1);
 	rules = init_rules(ac, av);
 	if (!rules)

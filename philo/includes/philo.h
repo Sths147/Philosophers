@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:12:00 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 11:11:43 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:12:47 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int		ft_atoi(const char *nptr);
 int		check_args(int ac, char **av);
 time_t	actual_time(t_rules *rules);
 time_t	get_time(void);
-int		special_cases(char **av);
 
 //	utils_2.c
-int	ft_strlen(char *str);
+int		ft_strlen(char *str);
 
 //	init_rules.c
 t_rules	*init_rules(int ac, char **av);
