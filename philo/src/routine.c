@@ -6,24 +6,25 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:20:47 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 17:14:42 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:34:05 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static int	feed_philo(t_philo *philo);
+static void	philo_wait(t_philo *philo);
+static int	one_philo(t_philo *philo);
 
 void	*routine(void *args)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	while (get_time() < philo->rules->beg_time)
-		continue ;
-	if (philo->philo_id % 2)
-		usleep(100);
+	philo_wait(philo);
 	actualise_meal_stamp(philo);
+	if (philo->rules->nbr == 1 && one_philo(philo))
+		return (NULL);
 	while (1)
 	{
 		if (philo->eats && feed_philo(philo))
@@ -60,6 +61,29 @@ static int	feed_philo(t_philo *philo)
 		update_meals(philo);
 		philo->eats = 0;
 		drop_forks(philo);
+	}
+	return (0);
+}
+
+static void	philo_wait(t_philo *philo)
+{
+	while (get_time() < philo->rules->beg_time)
+		continue ;
+	if (philo->philo_id % 2)
+		usleep(100);
+}
+
+static int	one_philo(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->left_fork->fork);
+	philo->left_fork->is_taken = 1;
+	printf_secured(actual_time(philo->rules), philo->philo_id,
+		"has taken a fork", philo->rules);
+	pthread_mutex_unlock(&philo->left_fork->fork);
+	while (1)
+	{
+		if (is_it_done(philo))
+			return (1);
 	}
 	return (0);
 }
