@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:20:47 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 17:34:05 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:34:45 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,19 @@ static void	philo_wait(t_philo *philo)
 
 static int	one_philo(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->left_fork->fork);
-	philo->left_fork->is_taken = 1;
+	pthread_mutex_lock(&philo->right_fork->fork);
+	philo->right_fork->is_taken = 1;
 	printf_secured(actual_time(philo->rules), philo->philo_id,
 		"has taken a fork", philo->rules);
-	pthread_mutex_unlock(&philo->left_fork->fork);
 	while (1)
 	{
 		if (is_it_done(philo))
+		{	
+			pthread_mutex_unlock(&philo->right_fork->fork);
 			return (1);
+		}
+		myusleep(500, philo);
 	}
+	pthread_mutex_unlock(&philo->right_fork->fork);
 	return (0);
 }

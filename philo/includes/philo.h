@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:12:00 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 15:07:33 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:35:41 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_mutexes_philo(t_philo *table, int i, int stamp);
 
 //	free_2.c
 void	clean_rules(t_rules *rules);
-void	clean_forks(t_fork *forks, int nbr);
+void	clean_forks(t_rules *rules);
 void	clean_philos(t_philo *table, t_rules *rules);
 void	clean_all(t_philo *table, t_rules *rules);
 

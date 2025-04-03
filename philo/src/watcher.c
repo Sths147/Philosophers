@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:20:20 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 15:42:50 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:14:16 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ void	simulation_done(t_philo *table, int i, int type)
 		pthread_mutex_unlock(&table[j].done_mutex);
 		j++;
 	}
-	if (table->rules->nbr == 1 && table[0].right_fork->is_taken == 1)
+	if (table->rules->nbr == 1)
 	{
-		table[0].right_fork->is_taken = 0;
+		pthread_mutex_lock(&table[0].right_fork->fork);
+		if (table[0].right_fork->is_taken == 1)
+			table[0].right_fork->is_taken = 0;
 		pthread_mutex_unlock(&table[0].right_fork->fork);
 	}
 	wait_philos(table);

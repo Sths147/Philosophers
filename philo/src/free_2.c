@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:55:30 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 11:04:45 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:05:04 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ void	clean_rules(t_rules *rules)
 {
 	pthread_mutex_destroy(&rules->isdone_mutex);
 	pthread_mutex_destroy(&rules->mutex_printf);
-	clean_forks(rules->forks, rules->nbr);
+	clean_forks(rules);
 	free(rules);
 }
 
-void	clean_forks(t_fork *forks, int nbr)
+void	clean_forks(t_rules *rules)
 {
 	int	i;
 
 	i = -1;
-	while (++i < nbr)
-		pthread_mutex_destroy(&forks[i].fork);
-	free(forks);
+	while (++i < rules->nbr)
+		pthread_mutex_destroy(&rules->forks[i].fork);
+	free(rules->forks);
 }
 
 void	clean_philos(t_philo *table, t_rules *rules)
