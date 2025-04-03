@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:20:47 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 17:03:32 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:14:42 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	*routine(void *args)
 			philo->eats = 1;
 			printf_secured(actual_time(philo->rules), philo->philo_id,
 				"is thinking", philo->rules);
+			usleep(100);
 		}
 	}
 	return (NULL);
@@ -45,24 +46,20 @@ void	*routine(void *args)
 
 static int	feed_philo(t_philo *philo)
 {
-	while (1)
+	if (grab_forks(philo))
 	{
-		if (grab_forks(philo))
+		if (is_it_done(philo))
 		{
-			if (is_it_done(philo))
-			{
-				drop_forks(philo);
-				return (1);
-			}
-			actualise_meal_stamp(philo);
-			printf_secured(actual_time(philo->rules), philo->philo_id, "is eating",
-				philo->rules);
-			myusleep(philo->rules->eat_time, philo);
-			update_meals(philo);
-			philo->eats = 0;
 			drop_forks(philo);
-			break ;./
+			return (1);
 		}
+		actualise_meal_stamp(philo);
+		printf_secured(actual_time(philo->rules), philo->philo_id, "is eating",
+			philo->rules);
+		myusleep(philo->rules->eat_time, philo);
+		update_meals(philo);
+		philo->eats = 0;
+		drop_forks(philo);
 	}
 	return (0);
 }
