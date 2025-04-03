@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra -Werror
 
 INC = -Iincludes
 
@@ -10,13 +10,18 @@ SRCFOLDER = src/
 
 OBJFOLDER = objs/
 
-SRC_LIST = init.c 	\
-	philo_utils.c 	\
-	behaviour.c 	\
-	free.c			\
-	philo_utils2.c	\
-	create.c		\
-	main.c
+SRC_LIST = utils.c		\
+	free.c				\
+	free_2.c			\
+	init_rules.c		\
+	init_philo.c		\
+	mutex_functions.c	\
+	mutex_functions_2.c	\
+	launchs.c			\
+	routine.c			\
+	watcher.c			\
+	main.c				\
+	
 
 SRC = $(addprefix $(SRCFOLDER), $(SRC_LIST))
 

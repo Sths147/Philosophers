@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   mutex_functions_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 16:24:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/20 16:30:11 by sithomas         ###   ########.fr       */
+/*   Created: 2025/04/01 16:54:57 by sithomas          #+#    #+#             */
+/*   Updated: 2025/04/02 14:53:21 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philosophers.h"
+#include "philo.h"
 
-void	free_mutex(pthread_mutex_t	*forks, int nbr)
+void	myusleep(int time, t_philo *philo)
 {
-	int i;
-	
-	i = 0;
-	while (i < nbr)
-	{
-		if (pthread_mutex_destroy(&forks[i]) == -1)
-			return (perror("mutex destroy error"));
-		i++;
-	}
-	free(forks);
+	time_t	start;
+
+	start = get_time();
+	while (get_time() < start + time && !is_it_done(philo))
+		usleep(100);
+}
+
+void	update_meals(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->meals_mutex);
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->meals_mutex);
 }
