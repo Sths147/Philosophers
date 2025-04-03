@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:44:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:52:13 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:30:13 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	grab_forks(t_philo *philo)
 			"has taken a fork", philo->rules);
 	}
 	pthread_mutex_lock(&philo->left_fork->fork);
+	if (is_it_done(philo))
+	{	
+		pthread_mutex_unlock(&philo->left_fork->fork);
+		return ;
+	}
 	if (philo->left_fork->is_taken == 0)
 	{
 		philo->left_fork->is_taken = 1;

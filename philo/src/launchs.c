@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:43:59 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:50:17 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:04:25 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	launch_philos(t_philo *table, t_rules *rules)
 	}
 	return (0);
 }
+
 int	watch(t_philo *table, t_rules *rules)
 {
 	pthread_t	watcher_id;

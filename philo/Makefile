@@ -11,6 +11,7 @@ SRCFOLDER = src/
 OBJFOLDER = objs/
 
 SRC_LIST = utils.c		\
+	utils_2.c			\
 	free.c				\
 	free_2.c			\
 	init_rules.c		\

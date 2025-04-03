@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:16:51 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:48:04 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:04:13 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	assign_forks(t_philo *philo, int i)
 
 static int	start_philo_mutex(t_philo *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table->rules->nbr)

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:20:47 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:47:18 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:30:50 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	*routine(void *args)
 static int	feed_philo(t_philo *philo)
 {
 	grab_forks(philo);
-	actualise_meal_stamp(philo);
-	printf_secured(actual_time(philo->rules), philo->philo_id, "is eating",
-		philo->rules);
 	if (is_it_done(philo))
 	{
 		drop_forks(philo);
 		return (1);
 	}
+	actualise_meal_stamp(philo);
+	printf_secured(actual_time(philo->rules), philo->philo_id, "is eating",
+		philo->rules);
 	myusleep(philo->rules->eat_time, philo);
 	update_meals(philo);
 	philo->eats = 0;

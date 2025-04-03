@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:55:30 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:48:12 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:04:45 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	clean_forks(t_fork *forks, int nbr)
 
 void	clean_philos(t_philo *table, t_rules *rules)
 {
-	int i;
-	int nbr;
+	int	i;
+	int	nbr;
 
 	nbr = rules->nbr;
 	i = 0;

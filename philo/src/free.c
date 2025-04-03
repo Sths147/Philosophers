@@ -6,15 +6,11 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:03:58 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:48:08 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:05:31 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/*
-Destroys rules and the fork array until an index
-*/
 
 void	destroy_rules_2(t_rules *rules)
 {
