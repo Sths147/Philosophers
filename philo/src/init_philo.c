@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:16:51 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/04 12:29:51 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:50:37 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ static int	start_philo_mutex(t_philo *table)
 	i = 0;
 	while (i < table->rules->nbr)
 	{
-		if (pthread_mutex_init(&table[i].stamp_mutex, NULL) == -1)
+		if (pthread_mutex_init(&table[i].stamp_mutex, NULL))
 		{
 			free_mutexes_philo(table, i, 0);
 			return (1);
 		}
-		if (pthread_mutex_init(&table[i].meals_mutex, NULL) == -1)
+		if (pthread_mutex_init(&table[i].meals_mutex, NULL))
 		{
 			free_mutexes_philo(table, i, 1);
 			return (1);
 		}
-		if (pthread_mutex_init(&table[i].done_mutex, NULL) == -1)
+		if (pthread_mutex_init(&table[i].done_mutex, NULL))
 		{
 			free_mutexes_philo(table, i, 2);
 			return (1);

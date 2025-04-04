@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:43:42 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:47:59 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:54:33 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ static int	init_forks_and_time(t_rules *result)
 
 static int	init_rules_mutexes(t_rules *rules)
 {
-	if (pthread_mutex_init(&rules->mutex_printf, NULL) == -1)
+	if (pthread_mutex_init(&rules->mutex_printf, NULL))
 	{
 		free(rules);
 		return (1);
 	}
-	if (pthread_mutex_init(&rules->isdone_mutex, NULL) == -1)
+	if (pthread_mutex_init(&rules->isdone_mutex, NULL))
 	{
 		pthread_mutex_destroy(&rules->mutex_printf);
 		free(rules);
@@ -88,7 +88,7 @@ static t_fork	*init_fork_array(t_rules *rules)
 	while (i < rules->nbr)
 	{
 		result[i].is_taken = 0;
-		if (pthread_mutex_init(&result[i].fork, NULL) == -1)
+		if (pthread_mutex_init(&result[i].fork, NULL))
 		{
 			kill_ongoing_fork_array(result, i - 1);
 			destroy_rules(rules);
