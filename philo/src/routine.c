@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:20:47 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 18:34:45 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:44:09 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	one_philo(t_philo *philo)
 	while (1)
 	{
 		if (is_it_done(philo))
-		{	
+		{
 			pthread_mutex_unlock(&philo->right_fork->fork);
 			return (1);
 		}

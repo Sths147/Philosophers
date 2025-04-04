@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:11:00 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 18:08:37 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:43:48 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,8 @@ int	main(int ac, char **av)
 	}
 	if (launch_philos(table, rules))
 		return (1);
-	// if (rules->nbr == 1)
-	// 	one_philo(table, rules);
 	else if (watch(table, rules))
 		return (1);
 	clean_all(table, rules);
 	return (0);
 }
-
-// void	one_philo(t_rules *rules, t_philo *philo)
-// {
-	
-// }
