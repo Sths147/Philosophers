@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:15:38 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/03 13:13:50 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:17:58 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,11 @@ static int	check_length(char **av)
 
 	i = 0;
 	while (av[++i])
+	{
+		if (av[i][0] == '\0')
+			return (1);
 		if (ft_atoi(av[i]) == -1)
 			return (1);
+	}
 	return (0);
 }
